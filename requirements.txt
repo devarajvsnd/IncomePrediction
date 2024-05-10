@@ -1,0 +1,8 @@
+numpy
+Flask
+gunicorn
+scikit-learn
+pandas
+PyYAML
+evidently==0.2.0
+dill
