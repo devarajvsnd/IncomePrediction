@@ -1,0 +1,29 @@
+training_pipeline_config:
+  pipeline_name: src
+  artifact_dir: artifact
+
+data_ingestion_config:
+  dataset_download_url: https://github.com/devarajvsnd/data/raw/main/CensusData.tgz
+  raw_data_dir: raw_data
+  tgz_download_dir: tgz_data
+  ingested_dir: ingested_data
+
+
+data_transformation_config:
+  schema_dir: config
+  schema_file_name: schema.json
+  transformed_dir: transformed_data
+
+  
+
+model_trainer_config:
+  trained_model_dir: trained_model
+  base_accuracy: 0.6
+  model_config_dir: config
+  model_config_file_name: model.yaml
+
+
+
+model_pusher_config:
+  model_export_dir: saved_models
+

@@ -1,0 +1,80 @@
+
+  module_1:
+    class: XGBClassifier
+    module: lightgbm
+    params:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Since range() isn't directly usable, adjusted to a list
+      n_jobs: -1
+    search_param_grid:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Adjusted the range as a list [8, 9]
+      n_jobs: [-1]
+
+
+  module_2:
+    class: RandomForestClassifier
+    module: sklearn.ensemble
+    params:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Since range() isn't directly usable, adjusted to a list
+      n_jobs: -1
+    search_param_grid:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Adjusted the range as a list [8, 9]
+      n_jobs: [-1]
+ 
+  module_3:
+    class: AdaBoostClassifier
+    module: sklearn.ensemble
+    params:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Since range() isn't directly usable, adjusted to a list
+      n_jobs: -1
+    search_param_grid:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Adjusted the range as a list [8, 9]
+      n_jobs: [-1]
+
+
+  module_4:
+    class: DecisionTreeClassifier
+    module: sklearn.tree
+    params:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Since range() isn't directly usable, adjusted to a list
+      n_jobs: -1
+    search_param_grid:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Adjusted the range as a list [8, 9]
+      n_jobs: [-1]
+
+  module_5:
+    class: GaussianNB
+    module: sklearn.naive_bayes
+    params:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Since range() isn't directly usable, adjusted to a list
+      n_jobs: -1
+    search_param_grid:
+      n_estimators: [100, 130]
+      criterion: ['gini', 'entropy']
+      max_depth: [8, 9]  # Adjusted the range as a list [8, 9]
+      n_jobs: [-1]
+
+
+
+'''
+
+
+
+

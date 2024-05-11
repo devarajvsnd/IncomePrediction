@@ -1,0 +1,38 @@
+{	
+	"LengthOfDateStampInFile": 9,
+	"LengthOfTimeStampInFile": 6,
+	"NumberofColumns" : 15,
+	"ColName": {
+		"age" : "Integer",
+		"workclass": "varchar",
+		"fnlwgt": "Integer",
+		"education": "varchar",
+		"education-num": "Integer",
+		"marital-status": "varchar",
+		"occupation": "varchar",
+		"relationship": "varchar",
+		"race": "varchar",
+		"sex": "varchar",
+		"capital-gain": "Integer",
+		"capital-loss": "Integer",
+		"hours-per-week": "Integer",
+		"country": "varchar",
+		"salary": "varchar"
+	},
+
+	"target_column": "salary",
+
+	"columns_with_string_datatype": ["workclass", "education", "marital-status", "occupation", 
+	"relationship", "race", "sex", "country", "salary"],
+	
+
+	"numerical_columns": ["age", "fnlwgt", "education-num", "capital-gain", 
+	"capital-loss", "hours-per-week"],
+	
+
+	"columns_to_remove": ["education", "relationship"],
+
+	"Columns_for_Encoding":["marital-status", "occupation", "sex", "salary"]
+
+
+}

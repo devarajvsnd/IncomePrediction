@@ -1,0 +1,257 @@
+{% extends 'header.html' %}
+
+{% block head %}
+
+
+<title>Income Predictor</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+
+
+        <form action="/predict" method="post">
+            <legend>Person Details Form</legend>
+
+
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input class="form-control" type="text" name="age" placeholder="Enter the age"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Working Class</label>
+                <select class="form-control" type="text" name="workclass" placeholder="Select the work" required />
+                    <option class="placeholder" selected disabled value="">Select your value</option>
+
+                        <option value="Private">
+                            Private
+                        </option>
+                        <option value="Federal-gov">
+                            Federal Govt
+                        </option>
+                        <option value=" Local-gov">
+                            Local Govt
+                        </option>
+                        <option value="State-gov">
+                            State Govt
+                        </option>
+                        <option value="Self-emp-not-inc">
+                            Self Emp but not Inc
+                        </option>
+                        <option value=" Self-emp-inc">
+                            Selp employed
+                        </option>
+                        <option value="Without-pay">
+                            Without Pay
+                        </option>
+                </select>
+            </div>
+
+
+
+
+            <div class="mb-3">
+                <label class="form-label">Martial Status</label>
+                <select class="form-control" type="text" name="marital-status" placeholder="Enter the status" required />
+                    <option class="placeholder" selected disabled value="">Select your value</option>
+
+                        <option value="Never-married">
+                            Never Married
+                        </option>
+                        <option value="Divorced">
+                            Divorced
+                        </option>
+                        <option value="Married-civ-spouse">
+                            Married to civilian spouse
+                        </option>
+                        <option value="Married-AF-spouse">
+                            Married to AF spouse
+                        </option>
+                        <option value="Married-spouse-absent">
+                            Married but spouse absent
+                        </option>
+                        <option value="Separated">
+                            Separated
+                        </option>
+                        <option value="Married-spouse-absent">
+                            Married but spouse absent
+                        </option>
+                        <option value="Widowed">
+                            Widowed
+                        </option>
+
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label">Education Rank</label>
+                <input class="form-control" type="text" name="education-num" placeholder="Enter the vaue from 1 to 16"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">fnlwgt</label>
+                <input class="form-control" type="text" name="fnlwgt" placeholder="Enter value between 24000 and 400000"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Occupation</label>
+                <select class="form-control" type="text" name="occupation" placeholder="Enter the occupation" required />
+                    <option class="placeholder" selected disabled value="">Select your value</option>
+
+                        <option value="Exec-managerial">
+                            Executive Managerial
+                        </option>
+                        <option value="Farming-fishing">
+                            Framing or Fishing
+                        </option>
+                        <option value="Sales">
+                            Sales
+                        </option>
+                        <option value="Transport-moving">
+                            Transport or  moving
+                        </option>
+                        <option value="Prof-specialty">
+                            Professor
+                        </option>
+                        <option value="Other-service">
+                            Others
+                        </option>
+                        
+                </select>
+            </div>
+
+
+
+
+
+            <div class="mb-3">
+                <label class="form-label">Capital Gain</label>
+                <input class="form-control" type="text" name="capital-gain" placeholder="Enter value between 0 and 26000"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Capital Loss</label>
+                <input class="form-control" type="text" name="capital-loss" placeholder="Enter value between 0 and 3000"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <select class="form-control" type="text" name="sex" placeholder="Enter the sex" required />
+                    <option class="placeholder" selected disabled value="">Select your value</option>
+                        <option value="Female">
+                            FEMALE
+                        </option>
+                        <option value="Male">
+                            MALE
+                        </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Race</label>
+                <select class="form-control" type="text" name="race" placeholder="Enter the sex" required />
+                    <option class="placeholder" selected disabled value="">Select your value</option>
+                        <option value="White">
+                            White
+                        </option>
+                        <option value="Black">
+                            Black
+                        </option>
+                        <option value="Asian-Pac-Islander">
+                            Asian
+                        </option>
+                        <option value="Amer-Indian-Eskimo">
+                            American Indian
+                        </option>
+                        <option value="Other">
+                            other
+                        </option>
+                </select>
+            </div>
+
+            
+
+          
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Country Type</label>
+                <select class="form-control" type="text" name="country" placeholder="Enter country" required />
+                    <option class="placeholder" selected disabled value="">Select your value</option>
+                        <option value="United-States">
+                            United States
+                        </option>
+                        <option value="Canada">
+                            Canada
+                        </option>
+                        <option value="other">
+                            Other
+                        </option>
+                        
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+
+                <input class="btn btn-primary" type="submit" value="Predict Income " required />
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              Income Prediction
+            </div>
+            <div class="card-body">
+        {% if context['census_data'] is not none %}
+        <table class="table table-striped">
+            <caption>Income Prediction </caption>
+            <tr>
+                <th>Input Feature</th>
+                <th>Feature Value</th>
+
+            </tr>
+            {% for column,value in context['insurance_data'].items() %}
+
+
+
+            <tr>
+                <td>{{column}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+
+                <td>Is the insurance claim valid </td>
+                <td>
+                    {{ context['fraud_value'] }}
+                </td>
+            </tr>
+        </table>
+
+        {% else %}
+       
+              <h5 class="card-title">Submit Form</h5>
+              <p class="card-text">Kindly provide necessary information to predict income</p>
+            
+         
+
+        {% endif %}
+        Go to <a href="/" class="btn btn-primary">Home</a>
+    </div>
+</div>
+    </div>
+
+    {% endblock %}
