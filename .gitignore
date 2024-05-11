@@ -129,6 +129,7 @@ env.bak/
 venv.bak/
 
 src/artifact/
+saved_models/
 
 # Spyder project settings
 .spyderproject
