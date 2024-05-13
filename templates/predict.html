@@ -127,10 +127,6 @@
                 </select>
             </div>
 
-
-
-
-
             <div class="mb-3">
                 <label class="form-label">Capital Gain</label>
                 <input class="form-control" type="text" name="capital-gain" placeholder="Enter value between 0 and 26000"
@@ -140,6 +136,12 @@
             <div class="mb-3">
                 <label class="form-label">Capital Loss</label>
                 <input class="form-control" type="text" name="capital-loss" placeholder="Enter value between 0 and 3000"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Hours per Week</label>
+                <input class="form-control" type="text" name="hours-per-week" placeholder="Enter value between 0 and 60"
                     required />
             </div>
 
@@ -177,9 +179,6 @@
                         </option>
                 </select>
             </div>
-
-            
-
           
             </div>
             <div class="mb-3">
@@ -199,7 +198,6 @@
                 </select>
             </div>
 
-
             <div class="mb-3">
 
                 <input class="btn btn-primary" type="submit" value="Predict Income " required />
@@ -214,7 +212,7 @@
               Income Prediction
             </div>
             <div class="card-body">
-        {% if context['census_data'] is not none %}
+        {% if context['input_data'] is not none %}
         <table class="table table-striped">
             <caption>Income Prediction </caption>
             <tr>
@@ -222,7 +220,7 @@
                 <th>Feature Value</th>
 
             </tr>
-            {% for column,value in context['insurance_data'].items() %}
+            {% for column,value in context['input_data'].items() %}
 
 
 
@@ -236,7 +234,7 @@
 
                 <td>Is the insurance claim valid </td>
                 <td>
-                    {{ context['fraud_value'] }}
+                    {{ context['income_value'] }}
                 </td>
             </tr>
         </table>

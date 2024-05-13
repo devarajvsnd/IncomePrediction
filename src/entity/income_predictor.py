@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 from src.logger import logging
 from src.exception import IncomeException
+from sklearn.preprocessing import LabelEncoder
 from src.util.util import  read_json_file, scale_numerical_columns, load_object, find_correct_model_file
 
 class CensusData:
@@ -80,39 +81,32 @@ class IncomePredictor:
 
     def predict(self, data):
         try:
-            ohe_columns= ["insured_occupation", "insured_relationship", "incident_type", "collision_type", "authorities_contacted"]
-            encoded_data = pd.get_dummies(data, columns=ohe_columns)
-            dump_col=['authorities_contacted_Ambulance','authorities_contacted_None', 
-                'collision_type_Front Collision', 'incident_type_Multi-vehicle Collision', 
-                'insured_occupation_adm-clerical', 'insured_relationship_husband']
             
-            encoded_data=encoded_data.astype(float)
+            data['workclass'] = data['workclass'].apply(lambda x: 1 if 'Private' in x else 0)
+            data['race'] = data['race'].apply(lambda x: 1 if 'White' in x else 0)
+            data['country'] = data['country'].apply(lambda x: 1 if 'United-States' in x else 0)
+            Columns_for_Encoding=["marital-status", "occupation", "sex"]
+
+            encoder = LabelEncoder()
+            for column in Columns_for_Encoding:
+                data[column] = encoder.fit_transform(data[column])
+            logging.info(f"Encoded input Form")
+
+            encoded_data=data.astype(float)
 
             folder_name = list(map(int, os.listdir(self.model_dir)))
             latest_model_dir = os.path.join(self.model_dir, f"{max(folder_name)}")
-            cluster_object_file_path =os.path.join(latest_model_dir, 'KMeans')
-            file_name = os.listdir(cluster_object_file_path)[0]
-            cluster_model = os.path.join(cluster_object_file_path,file_name) 
-            kmeans=load_object(cluster_model)
-            columns_used_for_clustering = kmeans.columns_used
-            col_to_add=columns_used_for_clustering.difference(encoded_data.columns)
-            for col in col_to_add:
-                encoded_data[col] = 0
-
-            dataframe = encoded_data.drop(columns=[col for col in dump_col if col in encoded_data.columns])
-            df=dataframe[columns_used_for_clustering]
-            df.astype(float) 
-            cluster=kmeans.predict(df)
-            model_name = find_correct_model_file(path=latest_model_dir, cluster_number=cluster[0])
+            model_name = os.listdir(latest_model_dir)[0]
             model_dir = os.path.join(latest_model_dir, model_name)
             file_name = os.listdir(model_dir)[0]
             
             model = load_object(os.path.join(model_dir, file_name))
-            result=(model.predict(df))
+            logging.info(f"Model Loaded")
+            result=(model.predict(encoded_data))
             if result==0:
-                prediction = "NO"
+                prediction = "Less than 50K"
             else:
-                prediction = "YES"
+                prediction = "More than 50K"
             return prediction
             
         except Exception as e:

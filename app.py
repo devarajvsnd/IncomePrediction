@@ -27,8 +27,8 @@ MODEL_DIR = os.path.join(ROOT_DIR, SAVED_MODELS_DIR_NAME)
 
 from src.logger import get_log_dataframe
 
-CENSUS_DATA_KEY = "insurance_data"
-INCOME_VALUE_KEY = "fraud_value"
+CENSUS_DATA_KEY = "input_data"
+INCOME_VALUE_KEY = "income_value"
 
 app = Flask(__name__)
 
@@ -114,15 +114,17 @@ def predict():
         age=float(request.form['age'])
         workclass=str(request.form['workclass'])
         fnlwgt=float(request.form['fnlwgt'])
-        education_num=float(request.form['education_num'])
-        marital_status=str(request.form['marital_status'])
+        education_num=float(request.form['education-num'])
+        marital_status=str(request.form['marital-status'])
         occupation=str(request.form['occupation'])
         race=str(request.form['race'])
         sex=str(request.form['sex'])
-        capital_gains=float(request.form['capital_gains'])
-        capital_loss=float(request.form['capital_loss'])
+        capital_gains=float(request.form['capital-gain'])
+        capital_loss=float(request.form['capital-loss'])
         hours_per_week=float(request.form['hours-per-week'])
         country=str(request.form['country'])
+
+        logging.info(f"getting data")
         
         input_data=CensusData(age=age,
                                      workclass=workclass,
@@ -139,7 +141,9 @@ def predict():
                                      )
 
         input_df = input_data.get_input_data_frame()
+        logging.info(f"Dataframe created")
         income_predictor = IncomePredictor(model_dir=MODEL_DIR)
+        logging.info(f"Income predictor loaded")
         income_value=income_predictor.predict(input_df)
         
         context = {
